@@ -3,7 +3,9 @@ package com.blogfortraining.restapi.controller;
 import java.util.List;
 
 import com.blogfortraining.restapi.payload.PostDTO;
+import com.blogfortraining.restapi.payload.PostResponse;
 import com.blogfortraining.restapi.service.PostService;
+import com.blogfortraining.restapi.utils.AppConstants;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,8 +37,13 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostDTO> getAllPost(){
-        return postService.getAllPost();
+    public PostResponse getAllPost(
+        @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+        @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_SIZE_NUMBER, required = false) int pageSize,
+        @RequestParam(value = "sortBy", defaultValue = AppConstants.DEFAULT_SORT_BY, required = false) String sortBy,
+        @RequestParam(value = "order", defaultValue = AppConstants.DEFAULT_SORT_ORDER, required = false) String order
+    ){
+        return postService.getAllPost(pageNo,pageSize,sortBy,order);
     }
 
     @GetMapping("/{id}")
