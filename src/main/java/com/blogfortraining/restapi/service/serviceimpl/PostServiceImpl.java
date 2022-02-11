@@ -12,6 +12,7 @@ import com.blogfortraining.restapi.payload.PostResponse;
 import com.blogfortraining.restapi.repository.PostRepository;
 import com.blogfortraining.restapi.service.PostService;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,38 +24,28 @@ import org.springframework.stereotype.Service;
 public class PostServiceImpl implements PostService{
 
     private PostRepository postRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository){
+    public PostServiceImpl(PostRepository postRepository, ModelMapper modelMapper){
         this.postRepository = postRepository;
+        this.modelMapper = modelMapper;
     }
 
     private PostDTO convertPostToPostDTO(Post post){
-        PostDTO postDTO = new PostDTO();
-        postDTO.setId(post.getId());
-        postDTO.setTitle(post.getTitle());
-        postDTO.setDescription(post.getDescription());
-        postDTO.setContent(post.getContent());
+        PostDTO postDTO = modelMapper.map(post, PostDTO.class);
         return postDTO;
     }
 
     private Post convertPostDTOToPost(PostDTO postDTO){
-        Post post = new Post();
-        post.setId(postDTO.getId());
-        post.setTitle(postDTO.getTitle());
-        post.setDescription(postDTO.getDescription());
-        post.setContent(postDTO.getContent());
+        Post post = modelMapper.map(postDTO, Post.class);
         return post;
     }
 
     @Override
     public PostDTO createPost(PostDTO postDTO) {
-        Post post = new Post();
-        post.setTitle(postDTO.getTitle());
-        post.setDescription(postDTO.getDescription());
-        post.setContent(postDTO.getContent());
-        Post copyPost = postRepository.save(post);
-        return convertPostToPostDTO(copyPost);
+        Post post = convertPostDTOToPost(postDTO);
+        return convertPostToPostDTO(postRepository.save(post));
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.blogfortraining.restapi.payload;
 
+import java.util.Set;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class PostDTO {
     private String title;
     private String description;
     private String content;
+    private Set<CommentDTO> comments;
 }
