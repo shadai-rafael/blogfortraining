@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import com.blogfortraining.restapi.entity.Comment;
 import com.blogfortraining.restapi.entity.Post;
-import com.blogfortraining.restapi.exception.InconsistentDataExeption;
+import com.blogfortraining.restapi.exception.InconsistentDataException;
 import com.blogfortraining.restapi.exception.ResourceNotFoundException;
 import com.blogfortraining.restapi.payload.CommentDTO;
 import com.blogfortraining.restapi.repository.CommentRepository;
@@ -68,7 +68,7 @@ public class CommentServiceImpl implements CommentService{
             new ResourceNotFoundException("Comment", "id", Long.toString(commentId))
         );
         if(!comment.getPost().getId().equals(post.getId())){
-            throw new InconsistentDataExeption(HttpStatus.BAD_REQUEST, "There's not the post specified");
+            throw new InconsistentDataException(HttpStatus.BAD_REQUEST, "There's not the post specified");
         }
         return convertCommentToCommentDTO(comment);
     }
@@ -95,7 +95,7 @@ public class CommentServiceImpl implements CommentService{
             new ResourceNotFoundException("Comment", "id", Long.toString(commentId))
         );
         if(!comment.getPost().getId().equals(post.getId())){
-            throw new InconsistentDataExeption(HttpStatus.BAD_REQUEST, "There's not the post specified");
+            throw new InconsistentDataException(HttpStatus.BAD_REQUEST, "There's not the post specified");
         }
         comment.setName(commentDTO.getName());
         comment.setEmail(commentDTO.getEmail());

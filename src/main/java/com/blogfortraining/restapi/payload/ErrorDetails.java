@@ -21,16 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.blogfortraining.restapi.service;
+package com.blogfortraining.restapi.payload;
 
-import com.blogfortraining.restapi.payload.CommentDTO;
+import java.util.Date;
 
-import java.util.List;
+public class ErrorDetails {
 
-public interface CommentService {
-    public CommentDTO creatCommentDTO(CommentDTO comment, Long postId);
-    public List<CommentDTO> getCommentByPostId(Long postId);
-    public CommentDTO getCommentById(Long commentId, Long postId);
-    public CommentDTO updateComment(Long commentId, Long postId, CommentDTO commentDTO);
-    public void deleteComment(Long commentId, Long postId);
+    private Date timestamp;
+    private String details;
+    private String message;
+
+    public ErrorDetails(Date timestamp, String details, String message){
+        this.details = details;
+        this.timestamp = timestamp;
+        this.message = message;
+    }
+
+    public Date getTimestamp(){
+        return timestamp;
+    }
+
+    public String getDetails(){
+        return details;
+    }
+
+    public String getMessage(){
+        return message;
+    }
 }

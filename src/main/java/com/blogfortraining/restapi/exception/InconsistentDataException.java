@@ -21,16 +21,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.blogfortraining.restapi.service;
+package com.blogfortraining.restapi.exception;
 
-import com.blogfortraining.restapi.payload.CommentDTO;
+import org.springframework.http.HttpStatus;
 
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface CommentService {
-    public CommentDTO creatCommentDTO(CommentDTO comment, Long postId);
-    public List<CommentDTO> getCommentByPostId(Long postId);
-    public CommentDTO getCommentById(Long commentId, Long postId);
-    public CommentDTO updateComment(Long commentId, Long postId, CommentDTO commentDTO);
-    public void deleteComment(Long commentId, Long postId);
+@Getter
+@Setter
+public class InconsistentDataException extends RuntimeException{
+    
+    private HttpStatus status;
+    private String message;
+
+    public InconsistentDataException(HttpStatus status, String message){
+        this.message = message;
+        this.status = status;
+    }
+
+    public InconsistentDataException (HttpStatus status,String message, String message1) {
+        super(message);
+        this.status = status;
+        this.message = message1;
+    }
 }
