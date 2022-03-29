@@ -25,19 +25,25 @@ package com.blogfortraining.restapi.payload;
 
 import java.util.Set;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
+import lombok.Data;
 //Annotations
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-
 public class PostDTO {
     private long id;
+
+    @NotEmpty
+    @Size(min = 5, message = "At least 2 characters required")
     private String title;
+    
+    @NotEmpty
+    @Size(min = 10, message = "At least 10 characters required")
     private String description;
+    
+    @NotEmpty
     private String content;
+    
     private Set<CommentDTO> comments;
 }

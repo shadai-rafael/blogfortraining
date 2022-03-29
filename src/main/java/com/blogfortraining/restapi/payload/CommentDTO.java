@@ -24,17 +24,24 @@ SOFTWARE.
 
 package com.blogfortraining.restapi.payload;
 
-import lombok.AllArgsConstructor;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 
 public class CommentDTO {
 //    private Long id;
+    @NotEmpty
+    @Size(min = 8, message = "At least 8 characters required")
     private String name;
+
+    @NotEmpty
+    @Email
     private String email;
+
+    @NotEmpty
     private String body;
 }

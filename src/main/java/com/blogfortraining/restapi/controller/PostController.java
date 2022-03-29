@@ -23,8 +23,6 @@ SOFTWARE.
 */
 package com.blogfortraining.restapi.controller;
 
-import java.util.List;
-
 import com.blogfortraining.restapi.payload.PostDTO;
 import com.blogfortraining.restapi.payload.PostResponse;
 import com.blogfortraining.restapi.service.PostService;
@@ -43,6 +41,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
@@ -55,7 +57,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> creaPost(@RequestBody PostDTO postDTO){
+    public ResponseEntity<PostDTO> creaPost(@Valid @RequestBody PostDTO postDTO){
+        System.out.println(postDTO);
         return new ResponseEntity<>(postService.createPost(postDTO),HttpStatus.CREATED);
     }
 
@@ -75,7 +78,7 @@ public class PostController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<PostDTO> updatePost(@RequestBody PostDTO postDTO, @PathVariable(name = "id")long id){
+    public ResponseEntity<PostDTO> updatePost(@Valid @RequestBody PostDTO postDTO, @PathVariable(name = "id")long id){
         postService.updatePost(postDTO, id);
         return new ResponseEntity<>(postService.updatePost(postDTO,id), HttpStatus.OK);
     }

@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/posts")
@@ -54,7 +54,7 @@ public class CommentController {
 
     @PostMapping("/{postid}/comments")
     public ResponseEntity<CommentDTO> createComment(@PathVariable(value = "postid")Long postId,
-                                                    @RequestBody CommentDTO commentDTO){
+                                                    @Valid @RequestBody CommentDTO commentDTO){
         return new ResponseEntity<>(commentService.creatCommentDTO(commentDTO, postId), HttpStatus.CREATED);
     }
 
@@ -73,7 +73,7 @@ public class CommentController {
     @PutMapping("/{postid}/comments/{id}")
     public ResponseEntity<CommentDTO> updateComment(@PathVariable (value = "postid") Long postId,
                                                     @PathVariable (value = "id") Long commentId,
-                                                    @RequestBody CommentDTO commentDTO){
+                                                    @Valid @RequestBody CommentDTO commentDTO){
         CommentDTO updatedComment = commentService.updateComment(commentId, postId, commentDTO);                                                        
         return new ResponseEntity<> (updatedComment, HttpStatus.OK);
     }
