@@ -21,27 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+package com.blogfortraining.restapi.repository;
 
-package com.blogfortraining.restapi.entity;
+import java.util.Optional;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import com.blogfortraining.restapi.entity.User;
 
-@Setter
-@Getter
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Entity
-@Table(name="roles")
-public class Role {
-    @Id
-    @GeneratedValue(
-        strategy = GenerationType.IDENTITY
-    )
-    private Long id;
-    private String name;    
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByEmail(String email);
+    Optional<User> findByUserNameOrEmail(String userName, String email);
+    Optional<User> findByUserName(String userName);
+    Boolean existsByUserName(String userName);
+    Boolean existsByEmail(String email);
 }
