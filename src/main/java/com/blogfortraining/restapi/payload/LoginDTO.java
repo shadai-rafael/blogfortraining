@@ -21,16 +21,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-package com.blogfortraining.restapi.utils;
+package com.blogfortraining.restapi.payload;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.Getter;
+import lombok.Setter;
 
-public class PasswordEncoderPrinter {
-    
-    public static void main(String[] args) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println("Password: " +passwordEncoder.encode("password"));
-        System.out.println("Admin: " +passwordEncoder.encode("admin"));
-    }
+@Setter
+@Getter
+public class LoginDTO {
+
+    private String userNameorEmail;
+    private String password;
 }

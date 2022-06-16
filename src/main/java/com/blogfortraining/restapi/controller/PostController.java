@@ -60,7 +60,6 @@ public class PostController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<PostDTO> createPost(@Valid @RequestBody PostDTO postDTO){
-        System.out.println(postDTO);
         return new ResponseEntity<>(postService.createPost(postDTO),HttpStatus.CREATED);
     }
 
